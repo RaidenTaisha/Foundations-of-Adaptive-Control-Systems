@@ -1,4 +1,7 @@
 import numpy as np
+import statistics
+
+from statistics import mode
 
 
 class KNN:
@@ -12,7 +15,7 @@ class KNN:
         self.train_X = X
         self.train_y = y
 
-    def predict(self, X, num_loops=3):
+    def predict(self, X, num_loops=2):
         '''
         Использует модель KNN для предсказания классов принятого набора данных
         
@@ -136,6 +139,7 @@ class KNN:
         pred = np.zeros(num_test, np.int)
         for i in range(num_test):
             # TODO: Реализуйте выбор лучшего класса на основе k ближайших
-            # тренировочных выборок          
-            pass
+            # тренировочных выборок
+            min_dist = np.argpartition(-1 * dists[i], kth=self.k)
+            pred[i] = mode(self.train_y[min_dist[:self.k]])
         return pred
