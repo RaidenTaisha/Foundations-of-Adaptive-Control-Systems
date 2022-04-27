@@ -140,6 +140,6 @@ class KNN:
         for i in range(num_test):
             # TODO: Реализуйте выбор лучшего класса на основе k ближайших
             # тренировочных выборок
-            min_dist = np.argpartition(-1 * dists[i], kth=self.k)
+            min_dist = np.argpartition(1 * dists[i], kth=self.k)
             pred[i] = mode(self.train_y[min_dist[:self.k]])
         return pred

@@ -47,4 +47,13 @@ def multiclass_accuracy(prediction, ground_truth):
     '''
     # TODO: Реализуйте вычисление точности
     accuracy = 0
+    tp, fp, fn, tn = 0, 0, 0, 0
+    classes = list(set(ground_truth))
+    for Class in classes:
+        tp += np.count_nonzero(np.logical_and((Class == ground_truth), (Class == prediction)))
+        tn += np.count_nonzero(np.logical_xor((ground_truth == prediction), np.logical_and((Class == ground_truth), (Class == prediction))))
+        fp += np.count_nonzero(np.logical_and((Class != ground_truth), (Class == prediction)))
+        fn += np.count_nonzero(np.logical_and((Class == ground_truth), (Class != prediction)))
+        accuracy += (tp+tn)/(tp+fp+fn+tn)
+    accuracy = accuracy/len(classes)
     return accuracy
